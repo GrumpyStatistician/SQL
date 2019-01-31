@@ -41,7 +41,7 @@ FROM (
 SELECT	
 	Datepart (YY,MA_Purchase_Date) as "Year",
 	Datepart (MM,MA_Purchase_Date) as "Month",
-	Count (MA_Cases_Key) "Total"
+	Count (MA_Sales_Key) "Total"
 	
 FROM 	Sales..Main INNER JOIN Sales..Cust ON MA_Sales_Key = CT_Sales_Key
 	
@@ -50,8 +50,8 @@ MA_Purchase_Date BETWEEN @begin_date AND @end_date
 	
 		
 GROUP BY 
-	Datepart (YY,Purchase_Date),
-	Datepart (YY,Purchase_Date) ) as SUBQUERY
+	Datepart (YY,MA_Purchase_Date),
+	Datepart (YY,MA_Purchase_Date) ) as SUBQUERY
 	
 Group by 
 "Year"
