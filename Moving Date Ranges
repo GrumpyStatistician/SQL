@@ -1,0 +1,28 @@
+----Create moving date ranges that only require start dates
+---Below is example of moving Qtrs
+
+Declare 
+@begin_date datetime, 
+@end_date datetime,
+@Begin_date_Qtr1 datetime,
+@Begin_date_Qtr2 datetime,
+@Begin_date_Qtr3 datetime,
+@Begin_date_Qtr4 datetime,
+@End_date_Qtr2 datetime
+
+Set @begin_date = '2018-09-01 00:00'
+Set @end_date = '2018-11-30 23:59'
+
+--DSS Qtr (DateAdd -1 min to account for Qtr End_Dates)
+
+Set @Begin_Date_Qtr1='2018-09-02 00:00:00'
+Set @Begin_Date_Qtr2='2018-12-02 00:00:00'
+Set @Begin_Date_Qtr3='2018-03-04 00:00:00'
+Set @Begin_Date_Qtr4='2018-06-03 00:00:00'
+Set @End_date_Qtr2= '2018-12-01 23:59'
+
+
+'1st Qtr'=sum(case when Begin_date between @begin_date_Qtr1 and dateadd(minute,-1,@Begin_date_Qtr2)OR End_Date between @begin_date_Qtr1 and dateadd(minute,-1,@Begin_date_Qtr2) then "Total" else NULL end)
+'2nd Qtr'=sum(case when Begin_date between @Begin_date_Qtr2 and dateadd(minute,-1,@Begin_date_Qtr3) OR End_Date between @Begin_date_Qtr2 and dateadd(minute,-1,@Begin_date_Qtr3) then "Total" else NULL end),
+'3rd Qtr'=sum(case when Begin_date between @Begin_date_Qtr3 and dateadd(minute,-1,@Begin_date_Qtr4) OR End_Date between @Begin_date_Qtr3 and dateadd(minute,-1,@Begin_date_Qtr4) then "Total" else NULL end),
+'4th Qtr'=sum(case when Begin_date between @Begin_Date_Qtr4 and @End_date_Qtr4 OR End_Date between @Begin_Date_Qtr4 and @End_date_Qtr4 then "Total" else NULL end)	
