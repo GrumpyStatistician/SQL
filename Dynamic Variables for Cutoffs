@@ -32,3 +32,5 @@ FROM Races
 WHERE 
   RACE_DATE BETWEEN @begin_date AND @end_date
   AND TIME >= @last
+Order by 
+TIME DESC
