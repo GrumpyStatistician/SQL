@@ -1,0 +1,34 @@
+---What were the top 10 200m race times of 2018? provide me a list of descending times and including any ties for the slowest.
+Declare @begin_date datetime, 
+		    @end_date datetime,
+        @last int,
+
+			
+Set @begin_date = '2018-01-01 00:00'
+Set @end_date = '2018-12-31 23:59'
+
+----Get last dups
+SELECT 
+*,
+@last=min(TIME)
+
+From
+(
+	SELECT TOP 10				--Top 10
+    RACE_DATE,           --Date of Sale
+    RUNNER_ID,          --purchase key
+    TIME                --Sale price
+
+	FROM Races
+	WHERE
+	  RACE_DATE BETWEEN @begin_date AND @end_date
+	
+) top_100
+
+----Final List
+SELECT
+  *
+FROM Races
+WHERE 
+  RACE_DATE BETWEEN @begin_date AND @end_date
+  AND TIME >= @last
