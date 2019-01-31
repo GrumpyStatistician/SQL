@@ -13,7 +13,7 @@ Declare
 Set @begin_date = '2018-09-01 00:00'
 Set @end_date = '2018-11-30 23:59'
 
---DSS Qtr (DateAdd -1 min to account for Qtr End_Dates)
+--Qtr (DateAdd -1 min to account for Qtr End_Dates)
 
 Set @Begin_Date_Qtr1='2018-09-02 00:00:00'
 Set @Begin_Date_Qtr2='2018-12-02 00:00:00'
