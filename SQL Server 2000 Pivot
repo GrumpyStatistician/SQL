@@ -1,7 +1,15 @@
 ---- No pivot function exists in SQL Server 2000, so a bit of legwork has to be carried out to avoid pivot tables
----- Below is an example
-----Example: Get distinct values by month
-----Assumes two tables Main and Cust on Sales DB
+
+----Both Examples use two tables, Main and Cust on Sales DB
+
+
+
+
+
+
+
+
+------------------------------------------------EXAMPLE 1 Distinct Sales by Month-----------------------------------------------------
 
 
 
@@ -35,7 +43,7 @@ SELECT
 	Datepart (MM,MA_Purchase_Date) as "Month",
 	Count (MA_Cases_Key) "Total"
 	
-FROM 	Sales..Main INNER JOIN Sales..Cust_Cases ON MA_Case_Key = CT_Case_Key
+FROM 	Sales..Main INNER JOIN Sales..Cust ON MA_Sales_Key = CT_Sales_Key
 	
 WHERE 
 MA_Purchase_Date BETWEEN @begin_date AND @end_date
@@ -47,3 +55,20 @@ GROUP BY
 	
 Group by 
 "Year"
+
+
+------------------------------------------------EXAMPLE 2 Qtrs w/ Rev Total-----------------------------------------------------
+
+Select
+"1st"= case when "Month" in ('9','10','11') then "Total" else NULL END
+--"2nd"= case when  "Month" in ('12','1','2') then "Total" else NULL END,
+--"3rd"= case when "Month" in ('3','4','5') then "Total" else NULL END,
+--"4th"= case when "Month" in ('6','7','8') then "Total" else NULL END
+FROM
+
+(Select 
+Datepart (YY,MA_Purchase_Date) as "Year",
+Datepart (MM,MA_Purchase_Date) as "Month",
+"TOTAL"= CT_Rev
+FROM Sales..Main
+	LEFT JOIN  Sales..Cust on MA_Sales_Key=CT_Sales_Key)
