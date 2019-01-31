@@ -1,0 +1,14 @@
+Delcare @Area int
+
+Set @Area = 1
+
+WHILE( @AREA < 20)
+
+Begin
+
+---QUERY
+---SET WHERE Area=@Area 
+
+SET @Area=@Area+1
+
+END
