@@ -61,9 +61,9 @@ Group by
 
 Select
 "1st"= case when "Month" in ('9','10','11') then "Total" else NULL END
---"2nd"= case when  "Month" in ('12','1','2') then "Total" else NULL END,
---"3rd"= case when "Month" in ('3','4','5') then "Total" else NULL END,
---"4th"= case when "Month" in ('6','7','8') then "Total" else NULL END
+"2nd"= case when  "Month" in ('12','1','2') then "Total" else NULL END,
+"3rd"= case when "Month" in ('3','4','5') then "Total" else NULL END,
+"4th"= case when "Month" in ('6','7','8') then "Total" else NULL END
 FROM
 
 (Select 
