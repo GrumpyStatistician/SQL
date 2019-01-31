@@ -1,0 +1,49 @@
+---- No pivot function exists in SQL Server 2000, so a bit of legwork has to be carried out to avoid pivot tables
+---- Below is an example
+----Example: Get distinct values by month
+----Assumes two tables Main and Cust on Sales DB
+
+
+
+-----SET DATETIME VAR 
+Declare @begin_date datetime, @end_date datetime
+Set @begin_date = '2015-01-01 00:00'
+Set @end_date = '2017-12-31 23:59'
+
+
+SELECT
+'Cases' as "Title",
+"Year",
+"Jan" = sum(case when "Month"='1' then "Total" else null end),
+"Feb" = sum(case when "Month"='2' then "Total" else null end),
+"Mar" = sum(case when "Month"='3' then "Total" else null end),
+"Apr" = sum(case when "Month"='4' then "Total" else null end),
+"May" = sum(case when "Month"='5' then "Total" else null end),
+"June" = sum(case when "Month"='6' then "Total" else null end),
+"July" = sum(case when "Month"='7' then "Total" else null end),
+"Aug" = sum(case when "Month"='8'  then "Total" else null end),
+"Sept" = sum(case when "Month"='9' then "Total" else null end),
+"Oct" = sum(case when "Month"='10' then "Total" else null end),
+"Nov" = sum(case when "Month"='11' then "Total" else null end),
+"Dec" = sum(case when "Month"='12' then "Total" else NULL end)
+
+
+
+FROM (
+SELECT	
+	Datepart (YY,MA_Purchase_Date) as "Year",
+	Datepart (MM,MA_Purchase_Date) as "Month",
+	Count (MA_Cases_Key) "Total"
+	
+FROM 	Sales..Main INNER JOIN Sales..Cust_Cases ON MA_Case_Key = CT_Case_Key
+	
+WHERE 
+MA_Purchase_Date BETWEEN @begin_date AND @end_date
+	
+		
+GROUP BY 
+	Datepart (YY,Purchase_Date),
+	Datepart (YY,Purchase_Date) ) as SUBQUERY
+	
+Group by 
+"Year"
