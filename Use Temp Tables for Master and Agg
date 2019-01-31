@@ -1,0 +1,24 @@
+----Provide a Master list and Aggregations
+
+
+SELECT 
+*
+INTO Master
+FROM Database..Table_Name
+
+
+----SUM it-----
+SELECT
+SUM(Some_Nums) as Total
+---count(distinct Some_Key) as Total
+FROM Master
+
+---Master File--------
+SELECT
+*
+FROM Master
+
+
+
+
+
