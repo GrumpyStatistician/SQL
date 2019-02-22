@@ -1,3 +1,6 @@
+--- You can specify what db the function lives in, but this is optional (will be in Programmability in Scalar Functions)
+USE SOME_DB
+
 ---Give function name and declare variable and type to pass through ex. function(@var_name varchar)
 CREATE FUNCTION dbo.segmentofday(@datetime datetime)
 ---select what variable type will be returned
